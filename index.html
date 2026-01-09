@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>FoodHue – From fresh produce to daily essentials, shop smarter!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="FoodHue is your online grocery service. Shop smarter with fresh produce and daily essentials delivered to your door." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fefcf9;
+      --bg-alt: #faf8f5;
+      --card: #ffffff;
+      --primary: #166534;
+      --primary-dark: #14532d;
+      --primary-soft: rgba(22, 101, 52, 0.1);
+      --accent: #facc15;
+      --text: #1f2937;
+      --text-soft: #4b5563;
+      --border-soft: rgba(107, 114, 128, 0.2);
+      --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+      height: fit-content;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse 800px 600px at 10% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 600px 500px at 90% 70%, rgba(34, 197, 94, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      height: fit-content;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(20px);
+      background: rgba(254, 252, 249, 0.95);
+      border-bottom: 1px solid rgba(107, 114, 128, 0.1);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .nav-title {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 20px;
+      color: var(--primary);
+      font-family: "Georgia", "Times New Roman", serif;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a .soon {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-left: 4px;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(22, 101, 52, 0.2);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(22, 101, 52, 0.3);
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(107, 114, 128, 0.2);
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .btn-white:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 0px;
+      height: 1202px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 840px;
+      margin-bottom: 40px;
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 4.5vw, 48px);
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--primary);
+      line-height: 1.1;
+      font-family: "Georgia", "Times New Roman", serif;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-soft);
+      max-width: 620px;
+      margin-bottom: 63px;
+    }
+
+    .hero-title span.highlight {
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title span.highlight::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 4px;
+      height: 8px;
+      background: var(--accent);
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-image-container {
+      position: relative;
+      width: 100% !important;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      padding: 0;
+      box-sizing: border-box;
+      transform: matrix(0.994522, 0.104528, -0.104528, 0.994522, 0, 0) rotate(-6deg);
+    }
+
+    .hero-overlay-image {
+      position: absolute;
+      left: 1043px;
+      top: -13px;
+      width: 213px;
+      height: auto;
+      z-index: 15;
+      transform: matrix(0.97437, 0.224951, -0.224951, 0.97437, 0, 0) rotate(-13deg);
+    }
+
+    .hero-gallery-image-1 {
+      position: absolute;
+      top: 339px;
+      left: 649px;
+      width: 173px;
+      height: 180px;
+      opacity: 0.2;
+    }
+
+    .hero-gallery-image-3 {
+      position: absolute;
+      top: 79px;
+      left: 922px;
+      width: 111px;
+      height: 113px;
+      transform: matrix(0.992546, -0.121869, 0.121869, 0.992546, 0, 0) rotate(7deg);
+      opacity: 0.45;
+    }
+
+    .hero-gallery-image-4 {
+      position: absolute;
+      top: 425px;
+      left: 832px;
+      width: 164px;
+      height: 160px;
+      opacity: 0.8;
+    }
+
+    .hero-gallery-image-5 {
+      position: absolute;
+      top: 204px;
+      left: 1043px;
+      width: 159px;
+      height: 166px;
+      z-index: 1;
+      opacity: 0.7;
+    }
+
+    .hero-gallery-image-6 {
+      position: absolute;
+      top: 205px;
+      left: 832px;
+      width: 200px;
+      height: 210px;
+      z-index: -2;
+    }
+
+    .hero-overlay-cards {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+
+    .overlay-card {
+      position: absolute;
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      max-width: 280px;
+    }
+
+    .overlay-card-left {
+      /* Ancienne carte overlay gauche désactivée sur le visuel principal */
+      display: none;
+    }
+
+    .overlay-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(34, 197, 94, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .overlay-card-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .overlay-card-text {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .overlay-search {
+      position: absolute;
+      top: 725px;
+      left: 152px;
+      z-index: 0;
+      transform: translateX(-150px) rotate(-9deg);
+      background: white;
+      border-radius: 16px;
+      padding: 25px 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 300px;
+    }
+
+    .overlay-search-icon {
+      font-size: 20px;
+      color: var(--text-soft);
+    }
+
+    .overlay-search-text {
+      font-size: 15px;
+      color: var(--text-soft);
+    }
+
+    .overlay-card-right {
+      top: 20%;
+      right: 5%;
+      max-width: 240px;
+      transform: rotate(5deg);
+    }
+
+    .overlay-card-receipt-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .overlay-card-receipt-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .overlay-card-receipt-meta {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    .overlay-card-ingredients {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ingredient-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .ingredient-more {
+      font-size: 13px;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    /* Sections */
+
+    section {
+      padding: 60px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #how {
+      padding-top: 37px;
+    }
+
+    #features {
+      background-color: rgba(245, 249, 246, 1);
+      height: 1185px;
+      overflow: hidden;
+    }
+
+    #testimonials {
+      background-color: rgba(245, 249, 246, 1);
+    }
+
+    #pricing {
+      background-color: rgba(236, 244, 238, 1);
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 0px;
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      font-family: "Georgia", "Times New Roman", serif;
+    }
+
+    .section-kicker {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 15px;
+      color: var(--text-soft);
+      width: 988px;
+      max-width: 856px;
+      line-height: 1.6;
+      padding-bottom: 5px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid rgba(107, 114, 128, 0.15);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    .feature-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: var(--text);
+      font-family: "Georgia", "Times New Roman", serif;
+    }
+
+    .feature-text {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .feature-tag {
+      display: inline-flex;
+      padding: 4px 10px;
+      font-size: 12px;
+      border-radius: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .steps-grid {
+      display: flex;
+      width: 100%;
+      gap: 32px;
+      align-items: center;
+      padding-top: 34px;
+    }
+
+    .steps-list {
+      list-style: none;
+      display: flex;
+      width: 100%;
+      gap: 20px;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      font-size: 15px;
+      width: 100%;
+    }
+
+    .step-index {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--primary);
+      background: white;
+      font-weight: 700;
+    }
+
+    .step-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 16px;
+      font-family: "Georgia", "Times New Roman", serif;
+    }
+
+    .step-text {
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .steps-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1px;
+    }
+
+    .steps-croquis {
+      width: 100%;
+      height: auto;
+      border-radius: 62px;
+      border-style: solid;
+      border-width: 30px;
+      border-color: rgba(0, 0, 0, 1);
+      box-shadow: 0px 13.3px 11.6px 7px rgba(0, 0, 0, 0.15);
+      display: block;
+      margin-bottom: 37px;
+    }
+
+    .steps-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .steps-panel-body {
+      display: grid;
+      gap: 12px;
+      color: var(--text);
+    }
+
+    .steps-panel-body span.label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .steps-panel-body strong {
+      font-size: 15px;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .steps-panel-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: var(--primary);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid rgba(107, 114, 128, 0.15);
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      font-size: 14px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .testimonial-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .testimonial-meta {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .testimonial-text {
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .badge {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .recipes-gallery {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .recipes-gallery img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .device-showcase {
+      margin-top: 0px;
+      height: 489px;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      vertical-align: top;
+    }
+
+    .device-image {
+      position: static;
+      width: 1205px;
+      max-width: 100%;
+      height: fit-content;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      border-radius: var(--radius-xl);
+      box-shadow: none;
+      display: block;
+    }
+
+    .pricing {
+      padding-bottom: 80px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 24px;
+      border: 1px solid rgba(107, 114, 128, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--primary);
+      box-shadow: 0 8px 32px rgba(22, 101, 52, 0.15);
+    }
+
+    .pricing-card.featured::before {
+      content: 'Recommandé';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .pricing-plan-name {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-weight: 700;
+      font-family: "Georgia", "Times New Roman", serif;
+    }
+
+    .pricing-plan-description {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 24px;
+      line-height: 1.6;
+      min-height: 42px;
+    }
+
+    .pricing-plan-price {
+      margin-bottom: 24px;
+    }
+
+    .pricing-bullets {
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .pricing-bullets span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pricing-bullets span::before {
+      content: "✓";
+      font-size: 16px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .pricing-plan-features {
+      flex: 1;
+      margin-bottom: 24px;
+    }
+
+    .pricing-plan-cta {
+      margin-top: auto;
+    }
+
+    .price-tagline {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .price-value {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      color: var(--primary);
+    }
+
+    .price-value span:nth-child(2) {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+
+    .pricing-guarantee {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .download-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .badge-appstore {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--primary);
+      border: none;
+      color: white;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(22, 101, 52, 0.2);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .badge-appstore-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .badge-appstore-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .badge-appstore-text span:first-child {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.9;
+    }
+
+    .badge-appstore-text span:last-child {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .badge-appstore:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(22, 101, 52, 0.3);
+    }
+
+    .footer {
+      border-top: 1px solid rgba(107, 114, 128, 0.15);
+      background: var(--bg-alt);
+      padding: 32px 24px;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text);
+      transition: color 0.2s ease-out;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Responsive */
+
+    @media (max-width: 960px) {
+      .hero {
+        padding: 40px 20px 60px;
+      }
+      .hero-content {
+        max-width: 100%;
+      }
+      .overlay-card-left,
+      .overlay-card-right {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        margin: 16px 0;
+        max-width: 100%;
+      }
+      .overlay-search {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin: 16px 0;
+      }
+      .hero-overlay-cards {
+        position: relative;
+        margin-top: 24px;
+      }
+      .features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .steps-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .testimonials-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .recipes-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        padding: 12px 16px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero {
+        padding: 32px 16px 48px;
+      }
+      .hero-title {
+        font-size: 32px;
+      }
+      .hero-ctas {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .hero-ctas .btn-primary,
+      .hero-ctas .btn-white {
+        justify-content: center;
+        width: 100%;
+      }
+      .features-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .testimonials-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .recipes-gallery {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .section {
+        padding: 40px 16px;
+      }
+      .overlay-card {
+        max-width: 100%;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <img src="images/icon.png" alt="Cuisto" class="logo-circle">
+        <span class="nav-title">Cuisto</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#features">Fonctionnalités</a>
+        <a href="#how">En pratique</a>
+        <a href="#testimonials">Avis</a>
+        <a href="#pricing">Tarif</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#download" class="btn-primary">
+          <span>Télécharger l'app</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+      <section id="top" class="hero">
+        <div class="hero-content">
+          <img src="images/6.png" alt="Exemple de recette générée dans Cuisto 6" class="hero-gallery-image-6">
+          <h1 class="hero-title">
+            La <span class="highlight">cuisine générative</span> qui crée vos recettes à votre place.
+          </h1>
+          <p class="hero-subtitle">
+            Décrivez une envie, ce que vous avez dans le frigo ou le temps dont vous disposez : l’IA de Cuisto vous propose des idées de repas adaptées, prêtes à être cuisinées.
+          </p>
+          <div class="hero-ctas">
+            <a href="#download" class="btn-primary">
+              <span>Télécharger l’app</span>
+            </a>
+            <a href="#features" class="btn-white">
+              <span>Découvrir l’app</span>
+            </a>
+          </div>
+        </div>
+
+        <img src="images/1.png" alt="Exemple de recette générée dans Cuisto 1" class="hero-gallery-image-1">
+        <img src="images/2.png" alt="Exemple de recette générée dans Cuisto 2" class="hero-overlay-image">
+        <img src="images/3.png" alt="Exemple de recette générée dans Cuisto 3" class="hero-gallery-image-3">
+        <img src="images/4.png" alt="Exemple de recette générée dans Cuisto 4" class="hero-gallery-image-4">
+        <img src="images/5.png" alt="Exemple de recette générée dans Cuisto 5" class="hero-gallery-image-5">
+        <div class="hero-image-container">
+          <img src="images/cuisto-hero.png" alt="Aperçu de Cuisto générant des recettes" class="hero-image">
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section id="features">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Fonctionnalités clés</div>
+              <h2 class="section-title">Tout ce qu'il faut pour cuisiner sans friction.</h2>
+              <p class="section-subtitle">
+                Cuisto combine l'intelligence artificielle à une interface pensée pour le Mac. 
+                Résultat&nbsp;: vous passez moins de temps à chercher des idées, et plus de temps à savourer.
+              </p>
+            </div>
+          </div>
+
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-icon">🍽</div>
+              <h3 class="feature-title">Recettes générées pour vous</h3>
+              <p class="feature-text">
+                Décrivez une envie (« pâtes rapides pour enfants », « dîner entre amis végétarien ») et Cuisto génère une recette claire avec étapes, temps, niveau et astuces.
+              </p>
+              <span class="feature-tag">Propulsé par l’IA</span>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">🧾</div>
+              <h3 class="feature-title">Liste de courses intelligente</h3>
+              <p class="feature-text">
+                Chaque recette crée une liste de courses que vous pouvez cocher, ajuster et regrouper. Exportez-la si besoin vers Rappels ou Notes.
+              </p>
+              <span class="feature-tag">Plus d’oublis au supermarché</span>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">📚</div>
+              <h3 class="feature-title">Bibliothèque de recettes personnelle</h3>
+              <p class="feature-text">
+                Conservez toutes vos recettes favorites dans une bibliothèque élégante : filtres par type de plat, temps, occasions, favoris et recherche.
+              </p>
+              <span class="feature-tag">Toujours sous la main</span>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">💻</div>
+              <h3 class="feature-title">Design Mac natif</h3>
+              <p class="feature-text">
+                Interface optimisée pour grand écran, prise en charge du mode sombre, raccourcis clavier et intégration fluide à macOS.
+              </p>
+              <span class="feature-tag">Pensé pour le bureau & la cuisine</span>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">🔔</div>
+              <h3 class="feature-title">Rappels & minuteries</h3>
+              <p class="feature-text">
+                Programmez des rappels de cuisson et des minuteries depuis chaque étape de la recette, directement dans l’app.
+              </p>
+              <span class="feature-tag">Plus de plats oubliés au four</span>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">🔒</div>
+              <h3 class="feature-title">Respect de la vie privée</h3>
+              <p class="feature-text">
+                Vos recettes et préférences sont synchronisées via iCloud. Aucune donnée de suivi publicitaire, jamais.
+              </p>
+              <span class="feature-tag">Vos données restent vos données</span>
+            </article>
+          </div>
+
+          <div class="device-showcase">
+            <img src="images/device.png" alt="Cuisto sur iPhone et iPad" class="device-image">
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section id="how">
+        <div class="section-inner">
+          <div class="section-header">
+            <div class="section-kicker">En pratique</div>
+            <h2 class="section-title">De l'idée au repas, en trois étapes.</h2>
+            <p class="section-subtitle">
+              Que vous ayez un frigo plein ou juste trois ingrédients qui se battent en duel,
+              Cuisto s'adapte à votre réalité.
+            </p>
+          </div>
+
+          <div>
+              
+              
+            </div>
+          <video src="images/mov.MP4" alt="Croquis des étapes de génération de recettes dans Cuisto" class="steps-croquis" autoplay loop muted playsinline></video>
+
+          <div class="steps-grid">
+            <ol class="steps-list">
+              <li class="step-item">
+                <div class="step-index">1</div>
+                <div>
+                  <div class="step-title">Décrivez votre envie du moment</div>
+                  <p class="step-text">
+                    « Plat rapide après le travail », « meal‑prep pour 3 jours » ou « dessert d'anniversaire au chocolat » : parlez normalement, Cuisto comprend.
+                  </p>
+                </div>
+              </li>
+              <li class="step-item">
+                <div class="step-index">2</div>
+                <div>
+                  <div class="step-title">Recevez une recette claire et détaillée</div>
+                  <p class="step-text">
+                    Ingrédients, quantités, temps par étape, niveau de difficulté, conseils… tout est prêt à être suivi depuis votre Mac.
+                  </p>
+                </div>
+              </li>
+              <li class="step-item">
+                <div class="step-index">3</div>
+                <div>
+                  <div class="step-title">Cochez votre liste de courses et cuisinez</div>
+                  <p class="step-text">
+                    Faites vos courses avec une liste organisée, cochez au fur et à mesure, puis revenez à la recette pour cuisiner sereinement.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section id="testimonials">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Avis</div>
+              <h2 class="section-title">Les premiers utilisateurs en parlent le mieux.</h2>
+            </div>
+            <p class="section-subtitle">
+              Cuisto a déjà aidé des familles, couples et foodies à simplifier leurs repas du quotidien. 
+              Voici ce qu’ils en disent.
+            </p>
+          </div>
+
+          <div class="testimonials-grid">
+            <article class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-user">
+                  <div class="avatar">M</div>
+                  <div>
+                    <div>Marion · 2 enfants</div>
+                    <div class="testimonial-meta">Dîners de semaine</div>
+                  </div>
+                </div>
+                <div class="stars">★ ★ ★ ★ ★</div>
+              </div>
+              <p class="testimonial-text">
+                « Je ne me pose plus la question “on mange quoi ce soir ?”. 
+                Je décris notre soirée et Cuisto me sort une idée qui colle à la réalité (temps, humeur, enfants). »
+              </p>
+              <span class="badge">Gain de temps énorme</span>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-user">
+                  <div class="avatar">L</div>
+                  <div>
+                    <div>Lucas</div>
+                    <div class="testimonial-meta">Amateur de batch‑cooking</div>
+                  </div>
+                </div>
+                <div class="stars">★ ★ ★ ★ ★</div>
+              </div>
+              <p class="testimonial-text">
+                « Je prépare désormais 3 repas d’un coup le dimanche avec Cuisto. 
+                Les listes sont propres, les étapes claires, et je n’oublie plus un ingrédient. »
+              </p>
+              <span class="badge">Idéal pour le meal‑prep</span>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-user">
+                  <div class="avatar">C</div>
+                  <div>
+                    <div>Camille</div>
+                    <div class="testimonial-meta">Cuisine pour invités</div>
+                  </div>
+                </div>
+                <div class="stars">★ ★ ★ ★ ★</div>
+              </div>
+              <p class="testimonial-text">
+                « Pour un dîner entre amis, j’ai demandé une recette un peu “wahou” mais faisable. 
+                Résultat : une super soirée, et une recette que j’ai gardée en favori. »
+              </p>
+              <span class="badge">Parfait pour les grandes occasions</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing / CTA -->
+      <section id="pricing" class="pricing">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Tarif</div>
+              <h2 class="section-title">Une app premium, pensée pour durer.</h2>
+            </div>
+            <p class="section-subtitle">
+              Choisissez le plan qui correspond à votre rythme de cuisine. 
+              Tous les plans incluent la synchronisation iCloud et le support prioritaire.
+            </p>
+          </div>
+
+          <div class="pricing-grid">
+            <!-- Plan Standard -->
+            <div class="pricing-card">
+              <div class="pricing-plan-name">Standard</div>
+              <p class="pricing-plan-description">
+                Parfait pour cuisiner régulièrement avec des recettes illustrées.
+              </p>
+              <div class="pricing-plan-price">
+                <div class="price-value">
+                  <span>3,99</span><span>€</span>
+                </div>
+                <p class="price-tagline">par mois</p>
+              </div>
+              <div class="pricing-plan-features">
+                <div class="pricing-bullets">
+                  <span>15 recettes par mois</span>
+                  <span>Image principale</span>
+                  <span>Synchronisation iCloud</span>
+                  <span>Support prioritaire</span>
+                </div>
+              </div>
+              <div class="pricing-plan-cta">
+                <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="btn-white" style="width: 100%; justify-content: center;">
+                  <span>Choisir Standard</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Plan Premium -->
+            <div class="pricing-card featured" id="download">
+              <div class="pricing-plan-name">Premium</div>
+              <p class="pricing-plan-description">
+                L'expérience complète avec diagrammes pour chaque étape de cuisine.
+              </p>
+              <div class="pricing-plan-price">
+                <div class="price-value">
+                  <span>6,99</span><span>€</span>
+                </div>
+                <p class="price-tagline">par mois</p>
+              </div>
+              <div class="pricing-plan-features">
+                <div class="pricing-bullets">
+                  <span>25 recettes par mois</span>
+                  <span>Image principale</span>
+                  <span>Diagrammes pour chaque étape</span>
+                  <span>Synchronisation iCloud</span>
+                  <span>Support prioritaire</span>
+                </div>
+              </div>
+              <div class="pricing-plan-cta">
+                <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="btn-primary" style="width: 100%; justify-content: center;">
+                  <span>Choisir Premium</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Plan Pro -->
+            <div class="pricing-card">
+              <div class="pricing-plan-name">Pro</div>
+              <p class="pricing-plan-description">
+                Pour les cuisiniers passionnés qui veulent le maximum de recettes.
+              </p>
+              <div class="pricing-plan-price">
+                <div class="price-value">
+                  <span>9,99</span><span>€</span>
+                </div>
+                <p class="price-tagline">par mois</p>
+              </div>
+              <div class="pricing-plan-features">
+                <div class="pricing-bullets">
+                  <span>50 recettes par mois</span>
+                  <span>Image principale</span>
+                  <span>Diagrammes pour chaque étape</span>
+                  <span>Synchronisation iCloud</span>
+                  <span>Support prioritaire</span>
+                  <span>Recettes illimitées supplémentaires</span>
+                </div>
+              </div>
+              <div class="pricing-plan-cta">
+                <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="btn-white" style="width: 100%; justify-content: center;">
+                  <span>Choisir Pro</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 48px; text-align: center; padding: 32px; background: white; border-radius: 16px; border: 1px solid rgba(107, 114, 128, 0.15);">
+            <p class="pricing-meta" style="margin-bottom: 16px;">
+              <strong>Compatible</strong> avec les derniers Mac Intel et Apple Silicon. 
+              L'application fonctionne uniquement à partir de macOS Tahoe (26.0) et iPadOS 26.0.
+            </p>
+            <p class="pricing-guarantee" style="margin-bottom: 0;">
+              <strong>Plan gratuit disponible</strong> : 3 recettes par mois avec texte uniquement. 
+              Tous les prix sont affichés en euros par mois. Le prix final peut varier selon votre pays et les taxes locales. 
+              Affiché directement dans le Mac App Store. Nécessite macOS 26.0 (Tahoe) ou ultérieur, et iPadOS 26.0 ou ultérieur.
+            </p>
+            <div class="download-badges" style="justify-content: center; margin-top: 24px;">
+              <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="badge-appstore">
+                <div class="badge-appstore-icon"></div>
+                <div class="badge-appstore-text">
+                  <span>Disponible sur le</span>
+                  <span>Mac App Store</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-inner">
+          <div>
+            © <span id="year"></span> FoodHue. All rights reserved.
+          </div>
+          <div class="footer-links">
+            <a href="#top">Top</a>
+            <span>·</span>
+            <a href="mailto:contact@foodhue.app">Contact</a>
+            <span>·</span>
+            <a href="#">Privacy</a>
+          </div>
+        </div>
+      </footer>
+  </main>
+
+  <script>
+    // Met l’année courante dans le footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
