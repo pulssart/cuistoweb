@@ -1283,7 +1283,7 @@
               
             </div>
           <div class="video-container">
-            <video id="steps-video" src="images/mov.mov" alt="Croquis des étapes de génération de recettes dans Cuisto" class="steps-croquis" loop muted playsinline></video>
+            <video id="steps-video" src="images/mov.mov" alt="Croquis des étapes de génération de recettes dans Cuisto" class="steps-croquis" muted playsinline></video>
             <div class="video-play-overlay" id="video-play-overlay">
               <button class="video-play-button" id="video-play-button" aria-label="Lire la vidéo">
                 <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1569,6 +1569,11 @@
       // Masquer l'overlay quand la vidéo est en lecture
       video.addEventListener('play', () => {
         playOverlay.classList.add('hidden');
+      });
+
+      // Afficher l'overlay quand la vidéo se termine
+      video.addEventListener('ended', () => {
+        playOverlay.classList.remove('hidden');
       });
     }
   </script>
